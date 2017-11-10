@@ -1,3 +1,14 @@
+import { NestNetworkManagerUtils } from './providers/nest/network/NestNetworkManagerUtils';
+import { EMITABLE_EVENTS, NETWORK_STREAM_EVENTS, NETWORK_ERROR_EVENTS } from './providers/nest/network/NestNetworkManagerConstants';
+import { NestNetworkManager } from './providers/nest/network/NestNetworkManager';
+import { NestRepresentationManager } from './providers/nest/representations/NestRepresentationManager';
+import { NestApplicationInterface } from './providers/nest/NestApplicationInterface';
+import { ConfigService } from './providers/config-service/config-service';
+import { DeviceService } from './providers/device-service/device-service';
+import { EmailService } from './providers/email-service/email-service';
+import { NotificationService } from './providers/notification-service/notification-service';
+import { UtilityService } from './providers/utility-service/utility-service';
+import { UserService } from './providers/user-service/user-service';
 import { NestcamComponent } from './nestcam/nestcam.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -30,6 +41,9 @@ import { SettingsComponent } from './settings/settings.component';
 import { AlltimesComponent } from './alltimes/alltimes.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FielderrorsComponent } from './fielderrors/fielderrors.component';
+
+// Providers
+
 
 
 const appRoutes: Routes = [
@@ -96,7 +110,22 @@ const appRoutes: Routes = [
     DragDropModule,
     GalleriaModule
   ],
-  providers: [ConfirmationService],
+  providers: [
+    ConfirmationService,
+    UserService,
+    UtilityService,
+    NotificationService,
+    EmailService,
+    DeviceService,
+    ConfigService,
+    NestApplicationInterface,
+    NestRepresentationManager,
+    NestNetworkManager,
+    NestNetworkManagerUtils,
+    EMITABLE_EVENTS,
+    NETWORK_STREAM_EVENTS,
+    NETWORK_ERROR_EVENTS
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
