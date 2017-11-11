@@ -142,7 +142,9 @@ export class DeviceService {
           if (this._CameraHasNewMotionEvent(cachedDevice, newDevice)) {
 
             newDevice.hasNewEvent = true;
-            this._notify.SendMotionNotification(newDevice);
+
+            // Commenting out until I figure out the cors issue.
+            // this._notify.SendMotionNotification(newDevice);
 
           }
 

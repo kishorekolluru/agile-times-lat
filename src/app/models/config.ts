@@ -28,7 +28,7 @@ export class ConfigModel {
     // MailGun properties.
     public mailGunAPIKey: string = 'key-7c14fc4ed4d305142ca66e145219e778';
 
-    public mailGunDomain: string = 'mail.node.link';
+    public mailGunDomain: string = 'sandbox4083d6b415784dfb9077d8c6ff7dd7cc.mailgun.org';
 
     public mailGunURL: string = 'https://api.mailgun.net/v3/';
 
