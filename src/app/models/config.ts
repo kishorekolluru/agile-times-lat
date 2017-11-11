@@ -19,16 +19,16 @@ export class ConfigModel {
     public nestProductSecret: string = 's27T0NIBWCkM8wSm2Kf1qzTBk';
 
     // Notification email properties.
-    public nestFromAddress: string = 'sample@email.address';
+    public nestFromAddress: string = 'mail@node.link';
 
     public nestEmailSubject: string = '{{camera_name}} detected motion.';
 
     public nestEmailMessageBody: string = 'Motion was detected by {{camera_name}} camera at {{start_time}}. Please check live video feed for potential intruders.';
 
     // MailGun properties.
-    public mailGunAPIKey: string = 'key-38c961c975d833b4844ee3f983d46db7';
+    public mailGunAPIKey: string = 'key-7c14fc4ed4d305142ca66e145219e778';
 
-    public mailGunDomain: string = 'sandboxcae2ff4026c04998820a9c4afe192644.mailgun.org';
+    public mailGunDomain: string = 'mail.node.link';
 
     public mailGunURL: string = 'https://api.mailgun.net/v3/';
 
