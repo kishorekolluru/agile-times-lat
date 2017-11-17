@@ -130,6 +130,8 @@ export class DeviceService {
 
   }
 
+
+
   // Sets hasNewEvent property for new devices.
   private _ParseDevicesForMotionEvents(cachedDevices: Array<DeviceModel>, newDevices: Array<DeviceModel>): Array<DeviceModel> {
 
@@ -142,7 +144,7 @@ export class DeviceService {
           if (this._CameraHasNewMotionEvent(cachedDevice, newDevice)) {
 
             newDevice.hasNewEvent = true;
-
+            this._LogMotionEvent(newDevice);
             // Commenting out until I figure out the cors issue.
             // this._notify.SendMotionNotification(newDevice);
 
@@ -172,6 +174,47 @@ export class DeviceService {
 
     return hasNewMotionEvent;
 
+  }
+
+
+
+  private _LogMotionEvent(deviceModel : DeviceModel):void{
+    var client = require('graphql-client')({ url: 'https://api.graph.cool/simple/v1/cj7xs5bov18hb0147so01lnto' });
+
+    let hasMotion:boolean = deviceModel.LastEvent.hasMotion;
+    let startTime:Date = deviceModel.LastEvent.startTime;
+    let deviceName:String = deviceModel.name;
+    let camId:String = deviceModel.id;
+    let imageURL:String = deviceModel.snapshotURL;
+    console.log("THE CAMERA NAME "+deviceName);
+    console.log("CAMERA ID "+camId);
+    console.log("THE START TIME "+startTime);
+    console.log("THE MOTION TIME "+hasMotion);
+    console.log("IMAGE URL "+imageURL);
+
+    client.query(`
+        mutation createMotionEvent ($cameraId: String!, $cameraName: String!, $eventDate: DateTime!, $image: String!) {
+            createMotionEvent(cameraId: $cameraId, cameraName: $cameraName, eventDate: $eventDate, image: $image) {
+                id
+            }
+        }`,
+        {
+          cameraId: camId,
+          cameraName: deviceName,
+          eventDate: startTime,
+          image : imageURL
+        }
+        , function (req, res) {
+            if (res.status === 401) {
+                throw new Error('Not authorized');
+            }
+        })
+        .then(function (body) {
+            console.log("SUCCESS STORING"+body);
+        })
+        .catch(function (err) {
+            console.log(err.message);
+        });
   }
 
 }
